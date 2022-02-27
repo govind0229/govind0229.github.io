@@ -176,13 +176,23 @@
 <style> .purple {color:purple;} </style>
 
 <style> .border {border: 2px solid black;} </style>
-<style> .outline {outline-style: dotted;} </style><div class="section" id="sphinx">
-<h2>Sphinx</h2>
+<style> .outline {outline-style: dotted;} </style><div class="section" id="id1">
+<h2>Sphinx Autobuild</h2>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p>Sphinx-autobuild is a handy extension to have when producing documentation and want to check how it  appears right away after making a change.</p>
 <p class="last">When it's run, it'll keep an eye on the source files and re-build our documentation if one of them changes. Furthermore, it will update our browser's page to reflect the new modifications.</p>
 </div>
+<p><span class="govind">Installation`</span></p>
+<div class="highlight"><pre><span></span>pip install sphinx-autobuild
+</pre></div>
+<p><span class="govind">Usage</span></p>
+<p>Run this command in your terminal,</p>
+<div class="highlight"><pre><span></span>sphinx-autobuild docs docs/build/html
+</pre></div>
+<p>docs is the directory of your source documentation</p>
+<p><tt class="docutils literal">docs/build/html</tt> is the directory where the output will be written</p>
+<p>Then, access <tt class="docutils literal"><span class="pre">http://127.0.0.1:8000/</span></tt> with your browser.</p>
 </div>
 
   </div>
