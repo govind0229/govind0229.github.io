@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validation Response</title>
+    <style>
+        .active {
+            color: green;
+        }
+        
+        .inactive {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Validation Response</h1>
+    
+    <form id="validationForm">
+        <label for="inputValue">Enter a value:</label>
+        <input type="text" id="inputValue" name="inputValue">
+        <button type="submit">Validate</button>
+    </form>
+    
+    <div id="response"></div>
+    
+    <script>
+        document.getElementById("validationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var inputValue = document.getElementById("inputValue").value;
+            
+            if (validate(inputValue)) {
+                document.getElementById("response").textContent = "Active";
+                document.getElementById("response").className = "active";
+            } else {
+                document.getElementById("response").textContent = "Inactive";
+                document.getElementById("response").className = "inactive";
+            }
+        });
+        
+        function validate(value) {
+            // Your validation logic goes here
+            // Return true if the value is valid, false otherwise
+            // For example, you can check if the value is not empty
+            return value !== "";
+        }
+    </script>
+    
+    <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $inputValue = $_POST['inputValue'];
+            
+            if (validate($inputValue)) {
+                echo '<p class="active">Active</p>';
+            } else {
+                echo '<p class="inactive">Inactive</p>';
+            }
+        }
+    ?>
+</body>
+</html>
