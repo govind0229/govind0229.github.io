@@ -7,11 +7,24 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const key = urlParams.get('key');
+         // Create a response object
+        const response = {
+            status: '',
+            message: ''
+        };
         if (key === 'sfdkjsdkfjksdhfjkhsjkdfweruhwkernkjsnsdcvhsfnwernjhwmjsdnkjsndf') {
-            document.write('Active');
+            response.status = 'Active';
+            response.message = 'API key is valid';
         } else {
-            document.write('null');
+            response.status = 'Deactivated';
+            response.message = 'API key is invalid';
         }
+
+        // Convert the response object to JSON
+        const jsonResponse = JSON.stringify(response);
+
+        // Display the JSON response
+        document.write(jsonResponse);
     </script>
 </body>
 </html>
