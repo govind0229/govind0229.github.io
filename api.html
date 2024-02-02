@@ -8,16 +8,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const key = urlParams.get('key');
          // Create a response object
-        const response = {
+        let response = {
             status: '',
             message: ''
         };
         if (key === 'sfdkjsdkfjksdhfjkhsjkdfweruhwkernkjsnsdcvhsfnwernjhwmjsdnkjsndf') {
             response.status = 'Active';
-            response.message = 'API key is valid';
         } else {
-            response.status = 'Deactivated';
-            response.message = 'API key is invalid';
+            response.status = 'failed';
         }
 
         // Convert the response object to JSON
