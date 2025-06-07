@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Govind Kumar</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; padding: 18px 0;">
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: #2d3748; letter-spacing: 2px;">Govind Kumar</div>
+            <nav>
+                <ul style="display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; align-items: center;">
+                    <li><a href="index.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Home</a></li>
+                    <li><a href="about.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">About</a></li>
+                    <li><a href="resume.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Resume</a></li>
+                    <li><a href="./projects/terraform-modules.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Projects</a></li>
+                    <li><a href="blog.html" class="active" style="color: #0077b6; font-weight: 600; text-decoration: none; padding: 8px 0; border-bottom: 2px solid #0077b6;">Blog</a></li>
+                    <li><a href="contact.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu" style="display: none;">
+                <i class="fas fa-bars" style="font-size: 1.6rem; color: #333;"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1>My Blog</h1>
+            <p>Sharing insights on DevOps, Cloud Computing, and Infrastructure Automation</p>
+        </div>
+    </section>
+
+    <section class="blog-content">
+        <div class="container">
+            <div class="blog-intro">
+                <p>I regularly write about my experiences, challenges, and solutions in the DevOps world. Most of my articles are published on Medium, where I share practical knowledge and best practices. Below you'll find a selection of my recent posts.</p>
+                <div class="medium-profile" style="display: flex; align-items: center; gap: 0.75em; margin: 1.5em 0;">
+                    <a href="https://medium.com/@govind_sharma" target="_blank" class="btn-medium" style="display: flex; align-items: center; background: #00ab6c; color: #fff; padding: 0.6em 1.2em; border-radius: 30px; font-weight: 600; text-decoration: none; transition: background 0.2s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1043.63 592.71" style="margin-right: 0.5em; vertical-align: middle;">
+                            <g>
+                                <ellipse cx="521.81" cy="296.35" rx="521.81" ry="296.35" fill="#fff"/>
+                                <path d="M588.67 296.35c0 163.62-131.6 296.35-293.67 296.35S1.33 459.97 1.33 296.35 132.93 0 295 0s293.67 132.73 293.67 296.35z" fill="#00ab6c"/>
+                                <ellipse cx="788.03" cy="296.35" rx="194.6" ry="194.6" fill="#00ab6c"/>
+                                <ellipse cx="1042.63" cy="296.35" rx="1.33" ry="194.6" fill="#00ab6c"/>
+                            </g>
+                        </svg>
+                        View My Medium Profile
+                    </a>
+                </div>
+            </div>
+
+            <div class="blog-posts">
+                <h2>Featured Articles</h2>
+                <div id="medium-posts" class="posts-grid">
+                    <!-- Medium posts will be loaded here dynamically -->
+                    <div class="loading">Loading latest articles...</div>
+                </div>
+            </div>
+            <script>
+            async function fetchMediumPosts() {
+                const username = "govind_sharma";
+                const feedUrl = `https://medium.com/feed/@${username}`;
+                const postsGrid = document.getElementById('medium-posts');
+                try {
+                    // Use rss2json to convert Medium RSS to JSON (since Medium API is not public)
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+                    const res = await fetch(apiUrl);
+                    const data = await res.json();
+                    postsGrid.innerHTML = '';
+                    if (data.items && data.items.length) {
+                        data.items.slice(0, 6).forEach(post => {
+                            // Try to extract the first image from the content if available
+                            let img = post.thumbnail || "assets/img/default-blog.png";
+                            const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/i);
+                            if (imgMatch && imgMatch[1]) {
+                                img = imgMatch[1];
+                            }
+                            // Optimize image: use width/height, lazy loading, and set alt
+                            const article = document.createElement('article');
+                            article.className = "blog-post";
+                            article.innerHTML = `
+                                <div class="post-image">
+                                    <img src="${img}" alt="${post.title}" loading="lazy" width="400" height="220" style="object-fit:cover;max-width:100%;height:auto;">
+                                </div>
+                                <div class="post-content">
+                                    <h3>${post.title}</h3>
+                                    <p class="post-meta">Published on Medium | ${new Date(post.pubDate).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+                                    <p>${post.description.replace(/<[^>]+>/g, '').slice(0, 120)}...</p>
+                                    <a href="${post.link}" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            `;
+                            postsGrid.appendChild(article);
+                        });
+                    } else {
+                        postsGrid.innerHTML = '<p>No articles found.</p>';
+                    }
+                } catch (e) {
+                    postsGrid.innerHTML = '<p>Unable to load articles at this time.</p>';
+                }
+            }
+            fetchMediumPosts();
+            </script>
+
+            <div class="newsletter">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to get notified about new articles and DevOps insights.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Govind Kumar</h3>
+                    <p>DevOps Engineer specializing in cloud solutions, automation, and infrastructure optimization.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/govind-kumar-5b497280/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/govind0229" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://medium.com/@govind_sharma" target="_blank"><i class="fab fa-medium"></i></a>
+                        <a href="mailto:govind_sharma@live.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Govind Kumar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

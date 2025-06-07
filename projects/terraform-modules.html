@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Modules | Govind Kumar</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; padding: 18px 0;">
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: #2d3748; letter-spacing: 2px;">Govind Kumar</div>
+            <nav>
+                <ul style="display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; align-items: center;">
+                    <li><a href="../index.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Home</a></li>
+                    <li><a href="../about.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">About</a></li>
+                    <li><a href="../resume.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Resume</a></li>
+                    <li><a href="./projects/terraform-modules.html" class="active" style="color: #0077b6; font-weight: 600; text-decoration: none; padding: 8px 0; border-bottom: 2px solid #0077b6;">Projects</a></li>
+                    <li><a href="../blog.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Blog</a></li>
+                    <li><a href="../contact.html" style="color: #333; text-decoration: none; font-weight: 500; padding: 8px 0; transition: color 0.2s;">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu" style="display: none;">
+                <i class="fas fa-bars" style="font-size: 1.6rem; color: #333;"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="projects-hero">
+        <div class="container">
+            <h1>Terraform Modules</h1>
+            <p>Open-source infrastructure as code solutions for AWS, Kubernetes, and more</p>
+        </div>
+    </section>
+
+    <section class="projects-content">
+        <div class="container">
+            <div class="projects-intro">
+                <p>As part of my commitment to the DevOps community, I've developed and open-sourced several Terraform modules that help streamline infrastructure provisioning. These modules are battle-tested in production environments and follow best practices for security, scalability, and maintainability.</p>
+                <div class="github-profile">
+                    <a href="https://github.com/govind0229/terraform-modules" target="_blank" class="btn-github">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <div id="projects-grid" class="projects-grid">
+                <!-- Modules will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <script>
+    async function fetchTerraformModules() {
+    const grid = document.getElementById('projects-grid');
+    try {
+        // Using the correct namespace based on your GitHub URLs
+        const resp = await fetch('https://registry.terraform.io/v1/modules?namespace=govind0229');
+        const data = await resp.json();
+        
+        if (!data || !data.modules || !Array.isArray(data.modules)) {
+            grid.innerHTML = '<p>No modules found. Showing locally defined modules.</p>';
+            // Fallback to locally defined modules
+            displayLocalModules();
+            return;
+        }
+        
+        grid.innerHTML = '';
+        data.modules.forEach(module => {
+            const docUrl = `https://registry.terraform.io/modules/${module.namespace}/${module.name}/${module.provider}`;
+            const repoUrl = `https://github.com/govind0229/${module.name}`;
+            const description = getModuleDescription(module.name) || module.description || 'No description available.';
+            
+            const card = document.createElement('article');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <div class="project-image">
+                    <img src="https://source.unsplash.com/400x200/?${encodeURIComponent(formatModuleName(module.name))},cloud,technology" alt="${module.name}">
+                </div>
+                <div class="project-content">
+                    <h3>${formatModuleName(module.name)}</h3>
+                    <p class="project-meta">Terraform | ${module.provider.toUpperCase()} | ${module.namespace}</p>
+                    <p>${description}</p>
+                    <div class="project-links">
+                        <a href="${repoUrl}" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (e) {
+        console.error('Error fetching Terraform modules:', e);
+        grid.innerHTML = '<p>Failed to load modules from Terraform Registry. Showing locally defined modules.</p>';
+        // Fallback to locally defined modules
+        displayLocalModules();
+    }
+}
+
+function formatModuleName(name) {
+    return name.replace(/^terraform-aws-/, '')
+              .replace(/-/g, ' ')
+              .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+function getModuleDescription(name) {
+    const descriptions = {
+        'terraform-aws-eks': 'A comprehensive module for creating EKS clusters with node groups, addons, and RBAC configurations. Supports multiple worker node types and security best practices.',
+        'terraform-aws-vpc': 'Create production-ready VPC infrastructure with public, private, database, and control plane subnets. Includes NAT gateways and Transit Gateway support.',
+        'terraform-aws-karpenter': 'Deploy Karpenter - the Kubernetes Node Autoscaler - to optimize cluster resources and costs. Features customizable node pools and discovery configurations.'
+    };
+    return descriptions[name];
+}
+
+function getModuleImage(name) {
+    const images = {
+        'default': 'terraform.jpg'
+    };
+    return images[name] || images['default'];
+}
+
+function displayLocalModules() {
+    const grid = document.getElementById('projects-grid');
+    const localModules = [
+        {
+            name: 'terraform-aws-eks',
+            provider: 'aws',
+            namespace: 'govind0229',
+            description: 'A comprehensive module for creating EKS clusters with node groups, addons, and RBAC configurations. Supports multiple worker node types and security best practices.'
+        },
+        {
+            name: 'terraform-aws-vpc',
+            provider: 'aws',
+            namespace: 'govind0229',
+            description: 'Create production-ready VPC infrastructure with public, private, database, and control plane subnets. Includes NAT gateways and Transit Gateway support.'
+        },
+        {
+            name: 'terraform-aws-karpenter',
+            provider: 'aws',
+            namespace: 'govind0229',
+            description: 'Deploy Karpenter - the Kubernetes Node Autoscaler - to optimize cluster resources and costs. Features customizable node pools and discovery configurations.'
+        }
+    ];
+    
+    grid.innerHTML = '';
+    localModules.forEach(module => {
+        const docUrl = `https://registry.terraform.io/modules/${module.namespace}/${module.name}/${module.provider}`;
+        const repoUrl = `https://github.com/govind0229/${module.name}`;
+        
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="project-image">
+                <img src="../assets/images/${getModuleImage(module.name)}" alt="${module.name}">
+            </div>
+            <div class="project-content">
+                <h3>${formatModuleName(module.name)}</h3>
+                <p class="project-meta">Terraform | ${module.provider.toUpperCase()} | ${module.namespace}</p>
+                <p>${module.description}</p>
+                <div class="project-links">
+                    <a href="${repoUrl}" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// Call the function to fetch and display modules
+fetchTerraformModules(); 
+    </script>
+
+            <div class="contribution-cta">
+                <h2>Contributions Welcome</h2>
+                <p>These modules are open-source and community-driven. Feel free to open issues for feature requests or submit pull requests for improvements.</p>
+                <a href="https://github.com/govind0229?tab=repositories" target="_blank" class="btn-primary">
+                    <i class="fab fa-github"></i> Contribute on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Govind Kumar</h3>
+                    <p>DevOps Engineer specializing in cloud solutions, automation, and infrastructure optimization.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../about.html">About</a></li>
+                        <li><a href="../../resume.html">Resume</a></li>
+                        <li><a href="terraform-modules.html">Projects</a></li>
+                        <li><a href="../../blog.html">Blog</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/govind-kumar-5b497280/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/govind0229" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://medium.com/@govind_sharma" target="_blank"><i class="fab fa-medium"></i></a>
+                        <a href="mailto:govind_sharma@live.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Govind Kumar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/script.js"></script>
+</body>
+</html>
