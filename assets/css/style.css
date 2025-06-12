@@ -175,11 +175,38 @@ header .container {
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2d3748;
-  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img.main-logo {
+  max-height: 50px;
+  width: auto;
   transition: all 0.3s ease;
+  display: block;
+}
+
+.logo img.scroll-logo {
+  max-height: 50px;
+  width: auto;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+/* Show different logo when scrolled */
+header.scrolled .logo img.main-logo {
+  display: none;
+}
+
+header.scrolled .logo img.scroll-logo {
+  display: block;
+  max-height: 45px; /* Slightly smaller when scrolled */
 }
 
 nav ul {
