@@ -1,14 +1,31 @@
 // Mobile menu toggle
 document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('header');
+    const scrollThreshold = 100; // Amount of pixels to scroll before header changes
+    
     const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navMenu = document.querySelector('nav ul.header');
+    const navMenu = document.querySelector('nav ul');
     
     if (mobileMenuBtn && navMenu) {
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('active');
-            console.log('Mobile menu clicked, toggling active class');
         });
     }
+    
+    // Header scroll behavior
+    function handleScroll() {
+        if (window.scrollY > scrollThreshold) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check initial scroll position
+    handleScroll();
     
     // Dropdown functionality
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');

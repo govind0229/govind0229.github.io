@@ -29,6 +29,7 @@ body {
   line-height: 1.6;
   color: var(--dark-color);
   background: var(--light-color);
+  padding-top: 80px; /* Adjust based on your header height */
 }
 
 .container {
@@ -156,20 +157,28 @@ ul {
   ========================= */
 
 header {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 1000;
   left: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  transition: padding 0.3s ease;
 }
 
 .logo {
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  letter-spacing: 0.03em;
+  font-weight: bold;
+  color: #2d3748;
+  letter-spacing: 2px;
   transition: all 0.3s ease;
 }
 
@@ -205,6 +214,35 @@ nav a:hover {
   right: 1.5rem;
   top: 1.2rem;
   z-index: 1001;
+}
+
+/* Scrolled header state */
+header.scrolled {
+  background-color: rgba(45, 55, 72, 0.95); /* Dark background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header.scrolled .container {
+  padding: 12px 0; /* Slightly more compact when scrolled */
+}
+
+header.scrolled .logo {
+  color: #fff;
+  font-size: 1.8rem; /* Slightly smaller logo when scrolled */
+}
+
+header.scrolled nav ul li a {
+  color: #fff;
+}
+
+header.scrolled nav ul li a.active,
+header.scrolled nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+}
+
+header.scrolled .mobile-menu i {
+  color: #fff;
 }
 
 /* Responsive Navigation */
@@ -1400,5 +1438,80 @@ footer {
   .highlights,
   .key-strengths {
     background-attachment: scroll;
+  }
+}
+
+/* Add these styles at the end of your file */
+
+/* Header transition and scroll behavior */
+header {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  left: 0;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+header.scrolled {
+  background-color: rgba(31, 41, 55, 0.95); /* Dark background with slight transparency */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+header.scrolled .logo {
+  color: #fff;
+}
+
+header.scrolled nav a {
+  color: #fff;
+}
+
+header.scrolled nav a.active,
+header.scrolled nav a:hover {
+  color: var(--primary-color);
+  background: rgba(243, 244, 246, 0.1);
+}
+
+header.scrolled .mobile-menu {
+  color: #fff;
+}
+
+header.hidden {
+  transform: translateY(-100%);
+}
+
+/* Dropdown menu adjustments for the dark header */
+header.scrolled .dropdown-toggle {
+  color: #fff !important;
+}
+
+header.scrolled .dropdown-menu {
+  background: rgba(31, 41, 55, 0.95);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+}
+
+header.scrolled .dropdown-menu a {
+  color: #fff;
+}
+
+header.scrolled .dropdown-menu a:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* Mobile menu adjustments for the dark header */
+@media (max-width: 768px) {
+  header.scrolled nav ul.header {
+    background: rgba(31, 41, 55, 0.95);
+  }
+  
+  header.scrolled nav ul li a {
+    color: #fff;
+  }
+  
+  header.scrolled .dropdown-menu {
+    background: rgba(43, 53, 67, 0.95);
   }
 }
