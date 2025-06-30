@@ -103,6 +103,336 @@
         </div>
     </section>
 
+    <!-- Updated tools section with popups -->
+    <section class="tools-section">
+        <div class="container">
+            <h2 class="section-title">Technologies I Work With</h2>
+            <div class="tools-grid">
+                <!-- AWS -->
+                <div class="tool-item" onclick="openToolModal('aws-modal')">
+                    <img src="assets/images/tools/aws.png" alt="Amazon Web Services">
+                    <span>AWS</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Azure -->
+                <div class="tool-item" onclick="openToolModal('azure-modal')">
+                    <img src="assets/images/tools/azure.png" alt="Microsoft Azure">
+                    <span>Azure</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Terraform -->
+                <div class="tool-item" onclick="openToolModal('terraform-modal')">
+                    <img src="assets/images/tools/terraform.png" alt="Terraform">
+                    <span>Terraform</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Kubernetes -->
+                <div class="tool-item" onclick="openToolModal('kubernetes-modal')">
+                    <img src="assets/images/tools/kubernetes.png" alt="Kubernetes">
+                    <span>Kubernetes</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Docker -->
+                <div class="tool-item" onclick="openToolModal('docker-modal')">
+                    <img src="assets/images/tools/docker.png" alt="Docker">
+                    <span>Docker</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- GitLab -->
+                <div class="tool-item" onclick="openToolModal('gitlab-modal')">
+                    <img src="assets/images/tools/gitlab.png" alt="GitLab">
+                    <span>GitLab</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- ArgoCD -->
+                <div class="tool-item" onclick="openToolModal('argocd-modal')">
+                    <img src="assets/images/tools/argocd.png" alt="ArgoCD">
+                    <span>ArgoCD</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Jenkins -->
+                <div class="tool-item" onclick="openToolModal('jenkins-modal')">
+                    <img src="assets/images/tools/jenkins.png" alt="Jenkins">
+                    <span>Jenkins</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- Ansible -->
+                <div class="tool-item" onclick="openToolModal('ansible-modal')">
+                    <img src="assets/images/tools/ansible.png" alt="Ansible">
+                    <span>Ansible</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+                
+                <!-- GitHub -->
+                <div class="tool-item" onclick="openToolModal('github-modal')">
+                    <img src="assets/images/tools/github.png" alt="GitHub">
+                    <span>GitHub</span>
+                    <div class="tool-hover-hint">Click for details</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal popups for each tool -->
+    <div id="tool-modals">
+        <!-- AWS Modal -->
+        <div id="aws-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('aws-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/aws.png" alt="AWS">
+                    <h3>Amazon Web Services</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Expert-level experience with AWS cloud services including:</p>
+                    <ul>
+                        <li><strong>EC2:</strong> Auto-scaling configurations for high-availability web applications</li>
+                        <li><strong>EKS:</strong> Managed Kubernetes clusters for container orchestration</li>
+                        <li><strong>S3:</strong> Secure object storage for applications and archives</li>
+                        <li><strong>Lambda:</strong> Serverless computing for event-driven applications</li>
+                        <li><strong>RDS:</strong> Managed database services with automatic scaling</li>
+                    </ul>
+                    <p>Implemented cost optimization strategies resulting in 30% reduction in AWS spend while maintaining performance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Azure Modal - Implemented following Azure Best Practices -->
+        <div id="azure-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('azure-modal')">&times;</span>
+                <div class="modal-header azure-header">
+                    <img src="assets/images/tools/azure.png" alt="Microsoft Azure" class="azure-logo">
+                    <h3>Microsoft Azure</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Comprehensive expertise with Azure cloud platform following Microsoft's Well-Architected Framework:</p>
+                    
+                    <div class="azure-section">
+                        <h4>Infrastructure & Compute</h4>
+                        <ul>
+                            <li><strong>Azure Kubernetes Service (AKS):</strong> Managed Kubernetes with advanced networking and RBAC</li>
+                            <li><strong>Azure Virtual Machines:</strong> Custom VM configurations with availability sets</li>
+                            <li><strong>Azure App Service:</strong> Fully managed web applications with auto-scaling</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="azure-section">
+                        <h4>DevOps & Automation</h4>
+                        <ul>
+                            <li><strong>Azure DevOps:</strong> End-to-end CI/CD pipelines with multi-stage approvals</li>
+                            <li><strong>Azure Bicep & ARM:</strong> Infrastructure as Code for consistent deployments</li>
+                            <li><strong>Azure Policy:</strong> Governance and compliance automation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="azure-section">
+                        <h4>Security & Monitoring</h4>
+                        <ul>
+                            <li><strong>Azure Security Center:</strong> Security posture management across resources</li>
+                            <li><strong>Azure Monitor:</strong> Comprehensive monitoring and alerting</li>
+                            <li><strong>Azure Key Vault:</strong> Secrets management and encryption solutions</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Designed and implemented Azure landing zones for enterprise-scale deployments, reducing time-to-market while maintaining security and compliance.</p>
+                    
+                    <div class="azure-compliance-note">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <strong>Security & Compliance:</strong>
+                            <span>All implementations follow Azure security best practices including Zero Trust principles, defense in depth, and least privilege access.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terraform Modal -->
+        <div id="terraform-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('terraform-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/terraform.png" alt="Terraform">
+                    <h3>Terraform</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Advanced Infrastructure as Code (IaC) implementation:</p>
+                    <ul>
+                        <li>Created reusable modules for consistent infrastructure deployment</li>
+                        <li>Implemented state management strategies for team environments</li>
+                        <li>Automated multi-cloud infrastructure provisioning</li>
+                        <li>Applied version control practices to infrastructure code</li>
+                        <li>Integrated with CI/CD pipelines for automated testing and deployment</li>
+                    </ul>
+                    <p>Reduced provisioning time from days to minutes with fully automated infrastructure pipelines while improving security and consistency.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kubernetes Modal -->
+        <div id="kubernetes-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('kubernetes-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/kubernetes.png" alt="Kubernetes">
+                    <h3>Kubernetes</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Expert-level container orchestration with Kubernetes:</p>
+                    <ul>
+                        <li>Designed and implemented production-grade Kubernetes clusters</li>
+                        <li>Created custom operators and controllers for specific application needs</li>
+                        <li>Implemented advanced networking solutions with service meshes</li>
+                        <li>Established GitOps workflows for declarative configuration management</li>
+                        <li>Enhanced security with Pod Security Policies and network policies</li>
+                    </ul>
+                    <p>Successfully migrated monolithic applications to microservices architecture, improving scalability, resilience, and deployment frequency.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Docker Modal -->
+        <div id="docker-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('docker-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/docker.png" alt="Docker">
+                    <h3>Docker</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Deep containerization expertise with Docker:</p>
+                    <ul>
+                        <li>Created optimized Docker images for various application stacks</li>
+                        <li>Implemented multi-stage builds for smaller, more secure images</li>
+                        <li>Established Docker security best practices and scanning</li>
+                        <li>Managed container registries with lifecycle policies</li>
+                        <li>Developed Docker Compose configurations for local development</li>
+                    </ul>
+                    <p>Reduced application deployment time by 70% and standardized development environments across teams.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GitLab Modal -->
+        <div id="gitlab-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('gitlab-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/gitlab.png" alt="GitLab">
+                    <h3>GitLab</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Comprehensive GitLab CI/CD implementation:</p>
+                    <ul>
+                        <li>Designed multi-stage CI/CD pipelines with parallel job execution</li>
+                        <li>Implemented automated testing and security scanning</li>
+                        <li>Created self-healing infrastructure with GitLab Auto DevOps</li>
+                        <li>Established merge request workflows with code quality gates</li>
+                        <li>Integrated with Kubernetes for continuous deployment</li>
+                    </ul>
+                    <p>Streamlined development workflows and reduced integration issues by 50% through automated pipelines.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ArgoCD Modal -->
+        <div id="argocd-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('argocd-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/argocd.png" alt="ArgoCD">
+                    <h3>ArgoCD</h3>
+                </div>
+                <div class="modal-body">
+                    <p>GitOps continuous delivery with ArgoCD:</p>
+                    <ul>
+                        <li>Implemented declarative, GitOps-based application deployment</li>
+                        <li>Set up multi-cluster application synchronization</li>
+                        <li>Created custom health checks and resource hooks</li>
+                        <li>Established role-based access control for deployment permissions</li>
+                        <li>Integrated with Kustomize and Helm for dynamic configuration</li>
+                    </ul>
+                    <p>Achieved consistent application state across environments and improved reliability with automated drift detection and remediation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Jenkins Modal -->
+        <div id="jenkins-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('jenkins-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/jenkins.png" alt="Jenkins">
+                    <h3>Jenkins</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Enterprise CI/CD automation with Jenkins:</p>
+                    <ul>
+                        <li>Built scalable Jenkins pipelines with shared libraries</li>
+                        <li>Implemented Jenkins as Code with Configuration as Code plugin</li>
+                        <li>Created parameterized build pipelines for flexible deployments</li>
+                        <li>Set up distributed builds for improved performance</li>
+                        <li>Integrated security scanning and quality gates</li>
+                    </ul>
+                    <p>Automated end-to-end delivery pipelines from code commit to production deployment, with appropriate approval gates and testing.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ansible Modal -->
+        <div id="ansible-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('ansible-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/ansible.png" alt="Ansible">
+                    <h3>Ansible</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Configuration management and automation with Ansible:</p>
+                    <ul>
+                        <li>Developed reusable Ansible roles for system configuration</li>
+                        <li>Implemented idempotent playbooks for reliable automation</li>
+                        <li>Created dynamic inventories for cloud environments</li>
+                        <li>Integrated Ansible Tower for workflow orchestration</li>
+                        <li>Established Infrastructure as Code practices using Ansible</li>
+                    </ul>
+                    <p>Reduced configuration drift and improved system reliability through consistent, automated configuration management.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GitHub Modal -->
+        <div id="github-modal" class="tool-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeToolModal('github-modal')">&times;</span>
+                <div class="modal-header">
+                    <img src="assets/images/tools/github.png" alt="GitHub">
+                    <h3>GitHub</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Advanced GitHub workflows and collaboration:</p>
+                    <ul>
+                        <li>Implemented GitHub Actions for CI/CD automation</li>
+                        <li>Created branch protection rules and code review processes</li>
+                        <li>Established GitHub flow for collaborative development</li>
+                        <li>Used GitHub Packages for artifact management</li>
+                        <li>Integrated GitHub security features for vulnerability scanning</li>
+                    </ul>
+                    <p>Improved team collaboration and code quality through standardized workflows and automated checks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
