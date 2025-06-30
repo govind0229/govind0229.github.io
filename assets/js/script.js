@@ -147,4 +147,49 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', animateOnScroll);
 });
 
+// Tool modal functions
+function openToolModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+        setTimeout(() => {
+            modal.classList.add('active');
+        }, 10);
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+}
+
+function closeToolModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300); // Match transition duration
+        document.body.style.overflow = ''; // Re-enable scrolling
+    }
+}
+
+// Close modal when clicking outside the content
+document.addEventListener('click', function(event) {
+    const modals = document.querySelectorAll('.tool-modal');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            const modalId = modal.getAttribute('id');
+            closeToolModal(modalId);
+        }
+    });
+});
+
+// Close modal with Escape key (accessibility best practice)
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const activeModal = document.querySelector('.tool-modal.active');
+        if (activeModal) {
+            const modalId = activeModal.getAttribute('id');
+            closeToolModal(modalId);
+        }
+    }
+});
+
 
