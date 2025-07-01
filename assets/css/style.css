@@ -1547,13 +1547,28 @@ header.scrolled .dropdown-menu a:hover {
 .tools-section {
     padding: 4rem 0;
     background-color: #f9fafb;
+    overflow: hidden;
+}
+
+.tools-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.tools-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+    border-radius: 12px;
 }
 
 .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    transition: transform 0.5s ease-in-out;
     gap: 2rem;
-    margin-top: 2rem;
+    padding: 1rem 0;
 }
 
 .tool-item {
@@ -1564,17 +1579,23 @@ header.scrolled .dropdown-menu a:hover {
     text-align: center;
     padding: 1.5rem;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    min-width: 180px;
+    flex-shrink: 0;
 }
 
 .tool-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.tool-item:active {
+    transform: translateY(-2px) scale(0.98);
 }
 
 .tool-item img {
@@ -1582,11 +1603,17 @@ header.scrolled .dropdown-menu a:hover {
     width: 60px;
     object-fit: contain;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.tool-item:hover img {
+    transform: scale(1.1);
 }
 
 .tool-item span {
-    font-weight: 500;
-    color: #4b5563;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
 }
 
 .tool-hover-hint {
@@ -1594,17 +1621,99 @@ header.scrolled .dropdown-menu a:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(59, 130, 246, 0.9));
     color: white;
-    padding: 5px 0;
+    padding: 8px 0;
     font-size: 0.8rem;
+    font-weight: 500;
     transform: translateY(100%);
     transition: transform 0.3s ease;
     text-align: center;
+    backdrop-filter: blur(4px);
 }
 
 .tool-item:hover .tool-hover-hint {
     transform: translateY(0);
+}
+
+/* Slider Controls */
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.slider-btn {
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.slider-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.slider-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.slider-indicators {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.auto-play-toggle {
+    background: none;
+    border: 2px solid var(--gray-color);
+    color: var(--gray-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.auto-play-toggle.active {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.auto-play-toggle:hover {
+    transform: translateY(-1px);
 }
 
 /* Modal styles */
@@ -1617,9 +1726,10 @@ header.scrolled .dropdown-menu a:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     opacity: 0;
     transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
 }
 
 .tool-modal.active {
@@ -1628,67 +1738,97 @@ header.scrolled .dropdown-menu a:hover {
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 0;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 80%;
-    max-width: 600px;
-    animation: modalopen 0.5s;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 85%;
+    max-width: 650px;
+    animation: modalopen 0.4s ease-out;
     position: relative;
-    max-height: 80vh;
-    overflow-y: auto;
+    max-height: 85vh;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .modal-header {
     display: flex;
     align-items: center;
-    padding: 1rem 1.5rem;
-    background-color: #f8f9fa;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-bottom: 1px solid #e9ecef;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 .modal-header img {
-    height: 40px;
+    height: 48px;
     width: auto;
     margin-right: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .modal-header h3 {
     margin: 0;
-    color: #333;
+    color: #1f2937;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .modal-body {
-    padding: 1.5rem;
+    padding: 2rem;
+    max-height: calc(85vh - 120px);
+    overflow-y: auto;
+    line-height: 1.7;
+}
+
+.modal-body p {
+    color: #374151;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
 }
 
 .modal-body ul {
     margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .modal-body li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #4b5563;
+}
+
+.modal-body strong {
+    color: #1f2937;
+    font-weight: 600;
 }
 
 .close-modal {
     position: absolute;
-    top: 0.5rem;
-    right: 1rem;
-    color: #aaa;
+    top: 1rem;
+    right: 1.5rem;
+    color: #6b7280;
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
 }
 
 .close-modal:hover {
-    color: #333;
+    color: #374151;
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.1);
 }
 
 /* Azure-specific styling (following Microsoft design guidelines) */
@@ -1740,34 +1880,219 @@ header.scrolled .dropdown-menu a:hover {
 @keyframes modalopen {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-30px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for tools section */
+@media (max-width: 1024px) {
+    .tool-item {
+        min-width: 160px;
+    }
+    
+    .tools-grid {
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
+    .tools-section {
+        padding: 3rem 0;
+    }
+    
+    .tool-item {
+        min-width: 140px;
+        padding: 1.25rem;
+    }
+    
+    .tool-item img {
+        height: 50px;
+        width: 50px;
+    }
+    
+    .tools-grid {
+        gap: 1rem;
+    }
+    
+    .slider-controls {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .auto-play-toggle {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
     .modal-content {
-        width: 90%;
-        margin: 20% auto;
+        width: 95%;
+        margin: 10% auto;
+        max-height: 80vh;
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .close-modal {
+        top: 0.75rem;
+        right: 1rem;
+        font-size: 1.75rem;
     }
 }
 
 @media (max-width: 480px) {
+    .tool-item {
+        min-width: 120px;
+        padding: 1rem;
+    }
+    
+    .tool-item img {
+        height: 45px;
+        width: 45px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .tool-item span {
+        font-size: 0.85rem;
+    }
+    
     .modal-content {
-        width: 95%;
+        width: 98%;
+        margin: 5% auto;
+        border-radius: 8px;
     }
     
     .modal-header {
         flex-direction: column;
         text-align: center;
+        padding: 1rem;
     }
     
     .modal-header img {
         margin-right: 0;
         margin-bottom: 0.5rem;
+        height: 40px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .close-modal {
+        top: 0.5rem;
+        right: 0.75rem;
+        font-size: 1.5rem;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .slider-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .slider-indicators {
+        order: -1;
+    }
+}
+
+/* Focus styles for accessibility */
+.tool-item:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.slider-btn:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.indicator:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.close-modal:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+/* Animation improvements */
+.tools-grid {
+    will-change: transform;
+}
+
+.tool-item {
+    will-change: transform, box-shadow;
+}
+
+/* Loading animation for images */
+.tool-item img {
+    opacity: 0;
+    animation: fadeInImage 0.3s ease-out forwards;
+}
+
+@keyframes fadeInImage {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Smooth transitions for responsive changes */
+@media (prefers-reduced-motion: no-preference) {
+    .tools-grid {
+        transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    
+    .tool-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .indicator {
+        transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .tools-grid {
+        transition: none;
+    }
+    
+    .tool-item {
+        transition: none;
+    }
+    
+    .tool-item:hover {
+        transform: none;
+    }
+    
+    .modal-content {
+        animation: none;
     }
 }

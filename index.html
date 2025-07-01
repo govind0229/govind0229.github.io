@@ -103,80 +103,132 @@
         </div>
     </section>
 
-    <!-- Updated tools section with popups -->
+    <!-- Updated tools section with slider functionality -->
     <section class="tools-section">
-        <div class="container">
-            <h2 class="section-title">Technologies I Work With</h2>
-            <div class="tools-grid">
-                <!-- AWS -->
-                <div class="tool-item" onclick="openToolModal('aws-modal')">
-                    <img src="assets/images/tools/aws.png" alt="Amazon Web Services">
-                    <span>AWS</span>
-                    <div class="tool-hover-hint">Click for details</div>
+        <div class="tools-container">
+            <h2 class="section-title text-center">Technologies I Work With</h2>
+            <div class="tools-slider-wrapper">
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- AWS -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('aws-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'aws-modal')"
+                         aria-label="Learn more about AWS">
+                        <img src="assets/images/tools/aws.png" alt="Amazon Web Services">
+                        <span>AWS</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Azure -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('azure-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'azure-modal')"
+                         aria-label="Learn more about Microsoft Azure">
+                        <img src="assets/images/tools/azure.png" alt="Microsoft Azure">
+                        <span>Azure</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Terraform -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('terraform-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'terraform-modal')"
+                         aria-label="Learn more about Terraform">
+                        <img src="assets/images/tools/terraform.png" alt="Terraform">
+                        <span>Terraform</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Kubernetes -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('kubernetes-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'kubernetes-modal')"
+                         aria-label="Learn more about Kubernetes">
+                        <img src="assets/images/tools/kubernetes.png" alt="Kubernetes">
+                        <span>Kubernetes</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Docker -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('docker-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'docker-modal')"
+                         aria-label="Learn more about Docker">
+                        <img src="assets/images/tools/docker.png" alt="Docker">
+                        <span>Docker</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- GitLab -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('gitlab-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'gitlab-modal')"
+                         aria-label="Learn more about GitLab">
+                        <img src="assets/images/tools/gitlab.png" alt="GitLab">
+                        <span>GitLab</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- ArgoCD -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('argocd-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'argocd-modal')"
+                         aria-label="Learn more about ArgoCD">
+                        <img src="assets/images/tools/argocd.png" alt="ArgoCD">
+                        <span>ArgoCD</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Jenkins -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('jenkins-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'jenkins-modal')"
+                         aria-label="Learn more about Jenkins">
+                        <img src="assets/images/tools/jenkins.png" alt="Jenkins">
+                        <span>Jenkins</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- Ansible -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('ansible-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'ansible-modal')"
+                         aria-label="Learn more about Ansible">
+                        <img src="assets/images/tools/ansible.png" alt="Ansible">
+                        <span>Ansible</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                    
+                    <!-- GitHub -->
+                    <div class="tool-item" role="button" tabindex="0" 
+                         onclick="openToolModal('github-modal')" 
+                         onkeydown="handleToolKeyPress(event, 'github-modal')"
+                         aria-label="Learn more about GitHub">
+                        <img src="assets/images/tools/github.png" alt="GitHub">
+                        <span>GitHub</span>
+                        <div class="tool-hover-hint">Click for details</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Controls -->
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn" onclick="moveSlider(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="slider-indicators" id="sliderIndicators">
+                    <!-- Dynamically generated based on number of slides -->
                 </div>
                 
-                <!-- Azure -->
-                <div class="tool-item" onclick="openToolModal('azure-modal')">
-                    <img src="assets/images/tools/azure.png" alt="Microsoft Azure">
-                    <span>Azure</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
+                <button class="slider-btn" id="nextBtn" onclick="moveSlider(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
                 
-                <!-- Terraform -->
-                <div class="tool-item" onclick="openToolModal('terraform-modal')">
-                    <img src="assets/images/tools/terraform.png" alt="Terraform">
-                    <span>Terraform</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- Kubernetes -->
-                <div class="tool-item" onclick="openToolModal('kubernetes-modal')">
-                    <img src="assets/images/tools/kubernetes.png" alt="Kubernetes">
-                    <span>Kubernetes</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- Docker -->
-                <div class="tool-item" onclick="openToolModal('docker-modal')">
-                    <img src="assets/images/tools/docker.png" alt="Docker">
-                    <span>Docker</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- GitLab -->
-                <div class="tool-item" onclick="openToolModal('gitlab-modal')">
-                    <img src="assets/images/tools/gitlab.png" alt="GitLab">
-                    <span>GitLab</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- ArgoCD -->
-                <div class="tool-item" onclick="openToolModal('argocd-modal')">
-                    <img src="assets/images/tools/argocd.png" alt="ArgoCD">
-                    <span>ArgoCD</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- Jenkins -->
-                <div class="tool-item" onclick="openToolModal('jenkins-modal')">
-                    <img src="assets/images/tools/jenkins.png" alt="Jenkins">
-                    <span>Jenkins</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- Ansible -->
-                <div class="tool-item" onclick="openToolModal('ansible-modal')">
-                    <img src="assets/images/tools/ansible.png" alt="Ansible">
-                    <span>Ansible</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
-                
-                <!-- GitHub -->
-                <div class="tool-item" onclick="openToolModal('github-modal')">
-                    <img src="assets/images/tools/github.png" alt="GitHub">
-                    <span>GitHub</span>
-                    <div class="tool-hover-hint">Click for details</div>
-                </div>
+                <!-- <button class="auto-play-toggle active" id="autoPlayToggle" onclick="toggleAutoPlay()">
+                    <i class="fas fa-play" id="autoPlayIcon"></i>
+                    <span id="autoPlayText">Auto</span>
+                </button> -->
             </div>
         </div>
     </section>
