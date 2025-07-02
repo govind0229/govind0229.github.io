@@ -50,8 +50,187 @@
                 </div>
             </div>
 
-            <div id="projects-grid" class="projects-grid">
-                <!-- Modules will be loaded here by JavaScript -->
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>AWS EKS Cluster</h3>
+                        <p>Production-ready Kubernetes cluster on AWS</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>Auto-scaling node groups</li>
+                            <li>IRSA (IAM Roles for Service Accounts)</li>
+                            <li>VPC and security group configuration</li>
+                            <li>OIDC provider setup</li>
+                            <li>CloudWatch logging integration</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">Kubernetes</span>
+                            <span class="tech-badge">EKS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-eks" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>VPC Network Module</h3>
+                        <p>Secure and scalable AWS VPC infrastructure</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>Multi-AZ subnet configuration</li>
+                            <li>NAT Gateway with high availability</li>
+                            <li>Internet Gateway setup</li>
+                            <li>Route table management</li>
+                            <li>Security group templates</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">VPC</span>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-vpc" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Application Load Balancer</h3>
+                        <p>Highly available load balancer with SSL/TLS</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>SSL certificate management</li>
+                            <li>Target group configuration</li>
+                            <li>Health check setup</li>
+                            <li>WAF integration support</li>
+                            <li>CloudWatch metrics</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">ALB</span>
+                            <span class="tech-badge">SSL/TLS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-alb" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>RDS Database Module</h3>
+                        <p>Managed relational database with backups</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>Multi-AZ deployment</li>
+                            <li>Automated backups</li>
+                            <li>Read replica support</li>
+                            <li>Parameter group customization</li>
+                            <li>Encryption at rest</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">RDS</span>
+                            <span class="tech-badge">Database</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-rds" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>S3 Bucket Module</h3>
+                        <p>Secure object storage with lifecycle policies</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>Versioning configuration</li>
+                            <li>Lifecycle policies</li>
+                            <li>Server-side encryption</li>
+                            <li>Public access blocking</li>
+                            <li>Cross-region replication</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">S3</span>
+                            <span class="tech-badge">Storage</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-s3" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>IAM Roles & Policies</h3>
+                        <p>Secure identity and access management</p>
+                    </div>
+                    <div class="project-content">
+                        <ul class="project-features">
+                            <li>Least privilege policies</li>
+                            <li>Service-linked roles</li>
+                            <li>Cross-account access</li>
+                            <li>MFA enforcement</li>
+                            <li>Audit logging</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span class="tech-badge">Terraform</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">IAM</span>
+                            <span class="tech-badge">Security</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/govind0229/terraform-aws-iam" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-footer">
+                <h2>Open Source Contribution</h2>
+                <p>All modules are open-source and available on GitHub. Feel free to contribute, report issues, or suggest improvements. Together, we can build better infrastructure for everyone.</p>
+                <div class="contribution-stats">
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Modules Published</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>GitHub Stars</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Contributors</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

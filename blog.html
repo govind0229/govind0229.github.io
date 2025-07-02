@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Govind Kumar</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/blog-modern.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -42,18 +43,16 @@
     <section class="blog-content">
         <div class="container">
             <div class="blog-intro">
-                <p>I regularly write about my experiences, challenges, and solutions in the DevOps world. Most of my articles are published on Medium, where I share practical knowledge and best practices. Below you'll find a selection of my recent posts.</p>
-                <div class="medium-profile" style="display: flex; align-items: center; gap: 0.75em; margin: 1.5em 0;">
-                    <a href="https://medium.com/@govind_sharma" target="_blank" class="btn-medium" style="display: flex; align-items: center; background: #00ab6c; color: #fff; padding: 0.6em 1.2em; border-radius: 30px; font-weight: 600; text-decoration: none; transition: background 0.2s;">
+                <p>I regularly write about my experiences, challenges, and solutions in the DevOps world. Most of my articles are published on Medium, where I share practical knowledge and best practices with the global tech community.</p>
+                <div class="medium-profile">
+                    <a href="https://medium.com/@govind_sharma" target="_blank" class="btn btn-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1043.63 592.71" style="margin-right: 0.5em; vertical-align: middle;">
                             <g>
                                 <ellipse cx="521.81" cy="296.35" rx="521.81" ry="296.35" fill="#fff"/>
-                                <path d="M588.67 296.35c0 163.62-131.6 296.35-293.67 296.35S1.33 459.97 1.33 296.35 132.93 0 295 0s293.67 132.73 293.67 296.35z" fill="#00ab6c"/>
-                                <ellipse cx="788.03" cy="296.35" rx="194.6" ry="194.6" fill="#00ab6c"/>
-                                <ellipse cx="1042.63" cy="296.35" rx="1.33" ry="194.6" fill="#00ab6c"/>
+                                <ellipse cx="521.81" cy="296.35" rx="516.23" ry="290.77" fill="#0a0a0a"/>
                             </g>
                         </svg>
-                        View My Medium Profile
+                        Follow on Medium
                     </a>
                 </div>
             </div>
@@ -61,55 +60,10 @@
             <div class="blog-posts">
                 <h2>Featured Articles</h2>
                 <div id="medium-posts" class="posts-grid">
-                    <!-- Medium posts will be loaded here dynamically -->
-                    <div class="loading">Loading latest articles...</div>
+                    <div class="loading">Loading latest articles from Medium...</div>
                 </div>
             </div>
-            <script>
-            async function fetchMediumPosts() {
-                const username = "govind_sharma";
-                const feedUrl = `https://medium.com/feed/@${username}`;
-                const postsGrid = document.getElementById('medium-posts');
-                try {
-                    // Use rss2json to convert Medium RSS to JSON (since Medium API is not public)
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-                    const res = await fetch(apiUrl);
-                    const data = await res.json();
-                    postsGrid.innerHTML = '';
-                    if (data.items && data.items.length) {
-                        data.items.slice(0, 6).forEach(post => {
-                            // Try to extract the first image from the content if available
-                            let img = post.thumbnail || "assets/img/default-blog.png";
-                            const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/i);
-                            if (imgMatch && imgMatch[1]) {
-                                img = imgMatch[1];
-                            }
-                            // Optimize image: use width/height, lazy loading, and set alt
-                            const article = document.createElement('article');
-                            article.className = "blog-post";
-                            article.innerHTML = `
-                                <div class="post-image">
-                                    <img src="${img}" alt="${post.title}" loading="lazy" width="400" height="220" style="object-fit:cover;max-width:100%;height:auto;">
-                                </div>
-                                <div class="post-content">
-                                    <h3>${post.title}</h3>
-                                    <p class="post-meta">Published on Medium | ${new Date(post.pubDate).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
-                                    <p>${post.description.replace(/<[^>]+>/g, '').slice(0, 120)}...</p>
-                                    <a href="${post.link}" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            `;
-                            postsGrid.appendChild(article);
-                        });
-                    } else {
-                        postsGrid.innerHTML = '<p>No articles found.</p>';
-                    }
-                } catch (e) {
-                    postsGrid.innerHTML = '<p>Unable to load articles at this time.</p>';
-                }
-            }
-            fetchMediumPosts();
-            </script>
-
+            
             <div class="newsletter">
                 <h2>Stay Updated</h2>
                 <p>Subscribe to get notified about new articles and DevOps insights.</p>
@@ -154,6 +108,185 @@
         </div>
     </footer>
 
+    <script>
+        // Enhanced Medium Posts Fetcher
+        async function fetchMediumPosts() {
+            const username = "govind_sharma";
+            const feedUrl = `https://medium.com/feed/@${username}`;
+            const postsGrid = document.getElementById('medium-posts');
+            
+            try {
+                // Show loading state
+                postsGrid.innerHTML = '<div class="loading">Loading latest articles from Medium...</div>';
+                
+                // Use rss2json to convert Medium RSS to JSON
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                postsGrid.innerHTML = '';
+                
+                if (data.items && data.items.length > 0) {
+                    data.items.slice(0, 6).forEach((post, index) => {
+                        // Extract image from content or use fallback
+                        let imgSrc = null;
+                        const imgMatch = post.content.match(/<img[^>]+src="([^">]+)"/i);
+                        if (imgMatch && imgMatch[1]) {
+                            imgSrc = imgMatch[1];
+                        }
+                        
+                        // Create article element
+                        const article = document.createElement('article');
+                        article.className = "blog-post";
+                        article.style.animationDelay = `${index * 0.1}s`;
+                        
+                        // Format date
+                        const publishDate = new Date(post.pubDate);
+                        const formattedDate = publishDate.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                        
+                        // Clean description
+                        const cleanDescription = post.description
+                            .replace(/<[^>]+>/g, '') // Remove HTML tags
+                            .replace(/&nbsp;/g, ' ') // Replace &nbsp; with space
+                            .replace(/&amp;/g, '&') // Replace &amp; with &
+                            .slice(0, 150) + '...';
+                        
+                        // Generate icon based on content or use default
+                        const getPostIcon = (title, content) => {
+                            const text = (title + ' ' + content).toLowerCase();
+                            if (text.includes('kubernetes') || text.includes('k8s')) return 'fas fa-dharmachakra';
+                            if (text.includes('aws') || text.includes('cloud')) return 'fab fa-aws';
+                            if (text.includes('docker')) return 'fab fa-docker';
+                            if (text.includes('terraform')) return 'fas fa-layer-group';
+                            if (text.includes('ci/cd') || text.includes('pipeline')) return 'fas fa-code-branch';
+                            if (text.includes('monitoring')) return 'fas fa-chart-line';
+                            if (text.includes('security')) return 'fas fa-shield-alt';
+                            if (text.includes('automation')) return 'fas fa-robot';
+                            return 'fas fa-blog';
+                        };
+                        
+                        const postIcon = getPostIcon(post.title, post.description);
+                        
+                        // Build article HTML
+                        article.innerHTML = `
+                            ${imgSrc 
+                                ? `<div class="post-image">
+                                     <img src="${imgSrc}" 
+                                          alt="${post.title}" 
+                                          loading="lazy" 
+                                          onerror="this.parentElement.outerHTML='<div class=\\"blog-post-image\\"><i class=\\"${postIcon}\\"></i></div>
+                                   </div>`
+                                : `<div class="blog-post-image">
+                                     <i class="${postIcon}"></i>
+                                   </div>`
+                            }
+                            <div class="post-content">
+                                <h3>${post.title}</h3>
+                                <p class="post-meta">
+                                    <span><i class="fab fa-medium"></i> Published on Medium</span>
+                                    <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
+                                </p>
+                                <p>${cleanDescription}</p>
+                                <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="read-more">
+                                    Read on Medium <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        `;
+                        
+                        postsGrid.appendChild(article);
+                    });
+                } else {
+                    showFallbackContent();
+                }
+                
+            } catch (error) {
+                console.error('Error fetching Medium posts:', error);
+                showFallbackContent();
+            }
+        }
+        
+        // Fallback content when Medium API fails
+        function showFallbackContent() {
+            const postsGrid = document.getElementById('medium-posts');
+            postsGrid.innerHTML = `
+                <div class="fallback-message">
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <i class="fab fa-medium"></i>
+                        </div>
+                        <div class="post-content">
+                            <h3>Visit My Medium Profile</h3>
+                            <p class="post-meta">
+                                <span><i class="fab fa-medium"></i> Latest Articles</span>
+                            </p>
+                            <p>I regularly publish articles about DevOps, Cloud Computing, and Infrastructure Automation on Medium. Visit my profile to read the latest insights and best practices.</p>
+                            <a href="https://medium.com/@govind_sharma" target="_blank" rel="noopener noreferrer" class="read-more">
+                                Visit Medium Profile <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="post-content">
+                            <h3>Featured Topic: AWS & Cloud Infrastructure</h3>
+                            <p class="post-meta">
+                                <span><i class="fas fa-tags"></i> Popular Topic</span>
+                            </p>
+                            <p>Explore my comprehensive guides on AWS services, cloud architecture, and infrastructure automation strategies for modern applications.</p>
+                            <a href="https://medium.com/@govind_sharma" target="_blank" rel="noopener noreferrer" class="read-more">
+                                Read Articles <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="blog-post-image">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="post-content">
+                            <h3>Featured Topic: DevOps Automation</h3>
+                            <p class="post-meta">
+                                <span><i class="fas fa-tags"></i> Popular Topic</span>
+                            </p>
+                            <p>Learn about advanced automation techniques, CI/CD best practices, and how AI is transforming DevOps workflows in modern development teams.</p>
+                            <a href="https://medium.com/@govind_sharma" target="_blank" rel="noopener noreferrer" class="read-more">
+                                Read Articles <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            `;
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchMediumPosts();
+            
+            // Newsletter form handling
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    
+                    // Here you would typically send to your newsletter service
+                    alert('Thank you for subscribing! We\'ll keep you updated with the latest DevOps insights.');
+                    this.reset();
+                });
+            }
+        });
+    </script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
