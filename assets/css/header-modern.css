@@ -1,0 +1,895 @@
+/* Modern Header Styles */
+
+/* Global mobile fixes */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Enhanced Header Base */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  padding: 0;
+  will-change: transform, background-color, backdrop-filter;
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* Modern gradient border effect */
+header::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(99, 102, 241, 0.6), 
+    rgba(168, 85, 247, 0.5), 
+    rgba(236, 72, 153, 0.6), 
+    transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  will-change: opacity;
+}
+
+/* Scrolled header state with glassmorphism */
+header.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+header.scrolled::before {
+  opacity: 1;
+}
+
+/* Modern container with better spacing */
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  transition: padding 0.4s ease;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Enhanced logo section */
+.logo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1001;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.logo a:hover {
+  transform: scale(1.02) translateY(-1px);
+}
+
+.logo a::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.1), 
+    rgba(168, 85, 247, 0.08),
+    rgba(236, 72, 153, 0.1));
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.logo a:hover::after {
+  opacity: 1;
+}
+
+.logo img.main-logo,
+.logo img.scroll-logo {
+  max-height: 60px;
+  width: auto;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.logo img.scroll-logo {
+  display: none;
+}
+
+/* Show different logo when scrolled */
+header.scrolled .logo img.main-logo {
+  display: none;
+}
+
+header.scrolled .logo img.scroll-logo {
+  display: block;
+  max-height: 55px;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
+}
+
+/* Modern Navigation */
+nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+nav ul {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: all 0.3s ease;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+}
+
+/* Enhanced nav links with modern styling */
+nav a {
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.1), 
+    rgba(168, 85, 247, 0.08),
+    rgba(236, 72, 153, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 14px;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(99, 102, 241, 0.8), 
+    rgba(168, 85, 247, 0.6));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+nav a:hover::before {
+  opacity: 1;
+}
+
+nav a:hover::after {
+  width: 80%;
+}
+
+nav a:hover {
+  color: #6366f1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+}
+
+nav a.active {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.15), 
+    rgba(168, 85, 247, 0.12));
+  color: #6366f1;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+}
+
+nav a.active::after {
+  width: 80%;
+}
+
+/* Scrolled header nav styling */
+header.scrolled nav a {
+  color: #e5e7eb;
+}
+
+header.scrolled nav a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+header.scrolled nav a.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Modern Mobile Menu Button */
+.mobile-menu {
+  display: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.1), 
+    rgba(168, 85, 247, 0.08));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: #6366f1;
+  padding: 0.75rem;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1001;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.2), 
+    rgba(168, 85, 247, 0.15));
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu:hover::after {
+  opacity: 1;
+}
+
+.mobile-menu:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.mobile-menu:active {
+  transform: translateY(0);
+}
+
+/* Mobile menu icon animation */
+.mobile-menu i {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-menu.active i {
+  transform: rotate(90deg);
+}
+
+/* Add a subtle pulse effect when active */
+.mobile-menu.active {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  }
+}
+
+/* Scrolled header mobile menu */
+header.scrolled .mobile-menu {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+header.scrolled .mobile-menu:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Mobile Navigation */
+@media (max-width: 768px) {
+  header .container {
+    padding: 0.75rem 1rem;
+    position: relative;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 50px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 45px;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    background: linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.98), 
+      rgba(255, 255, 255, 0.95));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    max-width: 100vw;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 2rem 0;
+    gap: 0.5rem;
+    display: none;
+    border-radius: 0 0 24px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Mobile menu when header is scrolled */
+  header.scrolled nav ul {
+    background: linear-gradient(145deg, 
+      rgba(15, 23, 42, 0.98), 
+      rgba(15, 23, 42, 0.95));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  }
+  
+  nav ul.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    animation: slideInDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  nav ul li {
+    margin: 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+  }
+  
+  nav ul.active li {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInLeft 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Stagger animation for menu items */
+  nav ul.active li:nth-child(1) { animation-delay: 0.1s; }
+  nav ul.active li:nth-child(2) { animation-delay: 0.15s; }
+  nav ul.active li:nth-child(3) { animation-delay: 0.2s; }
+  nav ul.active li:nth-child(4) { animation-delay: 0.25s; }
+  nav ul.active li:nth-child(5) { animation-delay: 0.3s; }
+  nav ul.active li:nth-child(6) { animation-delay: 0.35s; }
+  
+  /* Mobile nav links */
+  nav ul li a {
+    color: #374151;
+    padding: 1rem 2rem;
+    display: flex;
+    border-radius: 16px;
+    margin: 0 1rem;
+    font-weight: 600;
+    text-align: left;
+    position: relative;
+    min-height: 48px;
+    align-items: center;
+    width: calc(100% - 2rem);
+    box-sizing: border-box;
+  }
+  
+  nav ul li a::before {
+    border-radius: 16px;
+  }
+  
+  /* Add ripple effect on touch */
+  nav ul li a:active {
+    transform: translateX(8px) scale(0.98);
+  }
+  
+  /* Mobile nav links when header is scrolled */
+  header.scrolled nav ul li a {
+    color: #e5e7eb;
+  }
+  
+  nav ul li a:hover {
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.15), 
+      rgba(168, 85, 247, 0.12));
+    color: #6366f1;
+    transform: translateX(8px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+  }
+  
+  header.scrolled nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  }
+  
+  nav ul li a.active {
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.2), 
+      rgba(168, 85, 247, 0.15));
+    color: #6366f1;
+    transform: translateX(4px);
+  }
+  
+  header.scrolled nav ul li a.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+  
+  .mobile-menu {
+    display: flex;
+  }
+  
+  /* Mobile menu backdrop */
+  .mobile-menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Fix for iOS scroll lock */
+  @supports (-webkit-touch-callout: none) {
+    body.menu-open {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+  }
+  
+  /* Add visual feedback for menu interactions */
+  .mobile-menu:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Tablet specific adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  header .container {
+    padding: 1rem 1.5rem;
+  }
+  
+  nav ul {
+    gap: 0.25rem;
+  }
+  
+  nav a {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 55px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 50px;
+  }
+}
+
+/* Large screen enhancements */
+@media (min-width: 1400px) {
+  header .container {
+    padding: 1.25rem 2rem;
+    max-width: 1600px;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 70px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 65px;
+  }
+  
+  nav a {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  nav ul {
+    gap: 0.75rem;
+  }
+}
+
+/* Ultra-wide screen support */
+@media (min-width: 1920px) {
+  header .container {
+    max-width: 1800px;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 75px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 70px;
+  }
+  
+  nav a {
+    padding: 1rem 1.75rem;
+    font-size: 1.1rem;
+  }
+  
+  nav ul {
+    gap: 1rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  header .container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 42px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 38px;
+  }
+  
+  .mobile-menu {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+  
+  nav ul {
+    padding: 1.5rem 0;
+  }
+  
+  nav ul li a {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  header .container {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .logo img.main-logo,
+  .logo img.scroll-logo {
+    max-height: 38px;
+  }
+  
+  header.scrolled .logo img.scroll-logo {
+    max-height: 35px;
+  }
+  
+  nav ul li a {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Focus states for accessibility */
+nav a:focus,
+.mobile-menu:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* Focus visible for better UX */
+nav a:focus-visible,
+.mobile-menu:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* Remove focus outline for mouse users */
+nav a:focus:not(:focus-visible),
+.mobile-menu:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Add loading state for better UX */
+.header-loading {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.5s ease;
+}
+
+.header-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add subtle animations for better visual feedback */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page load animation */
+.page-loaded header {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Improve text rendering */
+header * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Add hover effects for better interactivity */
+.logo a:hover img {
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.2));
+}
+
+header.scrolled .logo a:hover img {
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+}
+
+/* Add modern border styles */
+@supports (border-image: paint(something)) {
+  header::before {
+    border-image: linear-gradient(90deg, 
+      transparent, 
+      rgba(99, 102, 241, 0.6), 
+      rgba(168, 85, 247, 0.5), 
+      rgba(236, 72, 153, 0.6), 
+      transparent) 1;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  header,
+  nav ul,
+  nav a,
+  .mobile-menu,
+  .logo a {
+    transition: none !important;
+  }
+  
+  .mobile-menu i {
+    transition: none !important;
+  }
+  
+  nav ul li {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  header {
+    border-bottom: 2px solid;
+  }
+  
+  nav a {
+    border: 1px solid transparent;
+  }
+  
+  nav a:hover,
+  nav a:focus {
+    border: 1px solid;
+  }
+  
+  .mobile-menu {
+    border: 2px solid;
+  }
+}
+
+/* Performance optimizations */
+header {
+  contain: layout style;
+  transform: translateZ(0);
+  will-change: background-color, backdrop-filter;
+}
+
+header::before {
+  will-change: opacity;
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.6), 
+    rgba(168, 85, 247, 0.5));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.8), 
+    rgba(168, 85, 247, 0.7));
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Additional mobile improvements */
+@media (max-width: 768px) {
+  /* Ensure no horizontal scrolling */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Reset any container constraints */
+  .container {
+    overflow: visible;
+  }
+  
+  /* Improve touch scrolling on mobile */
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Improve tap highlighting */
+  * {
+    -webkit-tap-highlight-color: rgba(99, 102, 241, 0.1);
+  }
+  
+  /* Fix mobile menu positioning */
+  nav ul {
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  header {
+    position: static;
+    background: white;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  
+  .mobile-menu {
+    display: none;
+  }
+  
+  nav ul {
+    display: flex !important;
+    flex-direction: row !important;
+    position: static !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}

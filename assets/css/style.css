@@ -309,6 +309,18 @@ nav a:hover {
   border-radius: 12px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1000;
+}
+
+.mobile-menu:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.3);
+  transform: translateY(-1px);
+}
+
+.mobile-menu:active {
+  transform: translateY(0);
 }
 
 /* Scrolled header state */
@@ -343,9 +355,14 @@ header.scrolled nav a:hover {
 }
 
 header.scrolled .mobile-menu {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+header.scrolled .mobile-menu:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Enhanced Mobile Menu Animations and Accessibility */
@@ -372,6 +389,41 @@ header.scrolled .mobile-menu {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
+  /* Mobile menu styling when header is scrolled (dark) */
+  header.scrolled nav ul {
+    background: rgba(31, 41, 55, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Mobile menu links styling */
+  nav ul li a {
+    color: var(--dark-color);
+    padding: 1rem 1.5rem;
+    display: block;
+    margin: 0 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile menu links when header is scrolled */
+  header.scrolled nav ul li a {
+    color: #ffffff;
+  }
+  
+  /* Mobile menu link hover states */
+  nav ul li a:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+  }
+  
+  header.scrolled nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  
+  /* Active menu state */
   nav ul.active {
     display: flex;
     opacity: 1;
@@ -382,6 +434,8 @@ header.scrolled .mobile-menu {
   .mobile-menu {
     display: flex;
     position: relative;
+    align-items: center;
+    justify-content: center;
   }
   
   .mobile-menu::after {
@@ -406,6 +460,86 @@ header.scrolled .mobile-menu {
   
   .mobile-menu:active::after {
     opacity: 1;
+  }
+  
+  /* Mobile menu icon animation */
+  .mobile-menu i {
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-menu.active i {
+    transform: rotate(90deg);
+  }
+  
+  /* Enhanced mobile menu items with stagger animation */
+  nav ul li {
+    margin: 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+  }
+  
+  nav ul.active li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Stagger animation for menu items */
+  nav ul.active li:nth-child(1) { transition-delay: 0.1s; }
+  nav ul.active li:nth-child(2) { transition-delay: 0.2s; }
+  nav ul.active li:nth-child(3) { transition-delay: 0.3s; }
+  nav ul.active li:nth-child(4) { transition-delay: 0.4s; }
+  nav ul.active li:nth-child(5) { transition-delay: 0.5s; }
+  nav ul.active li:nth-child(6) { transition-delay: 0.6s; }
+  
+  /* Mobile menu backdrop */
+  .mobile-menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Additional Mobile Menu Enhancements for Better Visibility */
+@media (max-width: 768px) {
+  /* Ensure menu items have proper contrast */
+  nav ul li a {
+    position: relative;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Active link styling for mobile */
+  nav ul li a.active {
+    background: rgba(102, 126, 234, 0.2);
+    color: var(--primary-color);
+  }
+  
+  header.scrolled nav ul li a.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+  
+  /* Mobile header padding adjustment */
+  header .container {
+    padding: 0 1rem;
+  }
+  
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
   }
 }
 
@@ -2314,7 +2448,7 @@ footer .container {
   font-weight: 800;
   color: #ffd700;
   display: block;
-  line-height: 1;
+  line-height:  1;
 }
 
 .resume-stats .stat-label {

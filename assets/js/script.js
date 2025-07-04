@@ -3,31 +3,137 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const scrollThreshold = 100; // Amount of pixels to scroll before header changes
     
+    // Add page loaded class for animations
+    document.body.classList.add('page-loaded');
+    
+    // Add initial loading state
+    if (header) {
+        header.classList.add('header-loading');
+        
+        // Remove loading state after a short delay
+        setTimeout(() => {
+            header.classList.remove('header-loading');
+            header.classList.add('header-loaded');
+        }, 100);
+    }
+    
     const mobileMenuBtn = document.querySelector('.mobile-menu');
     const navMenu = document.querySelector('nav ul');
     
     if (mobileMenuBtn && navMenu) {
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            
+            // Calculate and set the correct top position for mobile menu
+            const headerHeight = header.offsetHeight;
+            navMenu.style.top = headerHeight + 'px';
+            
+            // Change hamburger icon to X
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenuBtn.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+            
+            // Add/remove backdrop
+            let backdrop = document.querySelector('.mobile-menu-backdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.className = 'mobile-menu-backdrop';
+                document.body.appendChild(backdrop);
+                
+                backdrop.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    backdrop.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    
+                    // Reset icon
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.className = 'fas fa-bars';
+                });
+            }
+            
+            backdrop.classList.toggle('active');
         });
     }
     
-    // Header scroll behavior
-    function handleScroll() {
+    // Header scroll behavior with throttling for better performance
+    let ticking = false;
+    
+    function updateHeaderState() {
         if (window.scrollY > scrollThreshold) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
+        
+        // Update mobile menu position if it's open
+        if (navMenu && navMenu.classList.contains('active')) {
+            const headerHeight = header.offsetHeight;
+            navMenu.style.top = headerHeight + 'px';
+        }
+        
+        ticking = false;
     }
     
-    // Add scroll event listener
+    function handleScroll() {
+        if (!ticking) {
+            requestAnimationFrame(updateHeaderState);
+            ticking = true;
+        }
+    }
+    
+    // Add scroll event listener with passive option for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     // Check initial scroll position
-    handleScroll();
+    updateHeaderState();
     
-    // Dropdown functionality
+    // Keyboard accessibility for mobile menu
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+            
+            // Close menu with Escape key
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const backdrop = document.querySelector('.mobile-menu-backdrop');
+                if (backdrop) {
+                    backdrop.classList.remove('active');
+                }
+                
+                // Reset icon
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.className = 'fas fa-bars';
+            }
+        });
+    }
+    
+    // Global escape key handler for mobile menu
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            const backdrop = document.querySelector('.mobile-menu-backdrop');
+            if (backdrop) {
+                backdrop.classList.remove('active');
+            }
+            
+            // Reset icon
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.className = 'fas fa-bars';
+        }
+    });
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
     
     dropdownToggles.forEach(toggle => {
@@ -57,9 +163,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close mobile menu when clicking on a link
     const navLinks = document.querySelectorAll('nav ul li a');
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const backdrop = document.querySelector('.mobile-menu-backdrop');
+                if (backdrop) {
+                    backdrop.classList.remove('active');
+                }
+                
+                // Reset icon
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.className = 'fas fa-bars';
+            }
+            
+            // Add smooth scrolling for anchor links
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Add smooth scrolling for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = header.offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
