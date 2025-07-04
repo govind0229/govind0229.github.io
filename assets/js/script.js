@@ -281,4 +281,86 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Contact page enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    // Add animation classes for contact elements
+    const contactInfoDiv = document.querySelector('.contact-info');
+    const contactFormDiv = document.querySelector('.contact-form');
+    const mapSectionDiv = document.querySelector('.map-section');
+    
+    if (contactInfoDiv) {
+        contactInfoDiv.classList.add('animate-slide-left');
+    }
+    
+    if (contactFormDiv) {
+        contactFormDiv.classList.add('animate-slide-right');
+    }
+    
+    if (mapSectionDiv) {
+        mapSectionDiv.classList.add('animate-fade-up');
+    }
+    
+    // Helper function for clipboard copy
+    function copyToClipboard(text, span, originalText) {
+        navigator.clipboard.writeText(text).then(() => {
+            span.textContent = 'Copied!';
+            setTimeout(() => {
+                span.textContent = originalText;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+    
+    // Copy to clipboard functionality for contact info
+    const infoItems = document.querySelectorAll('.info-list li');
+    infoItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', function() {
+            const text = this.querySelector('span').textContent;
+            const span = this.querySelector('span');
+            const originalText = span.textContent;
+            
+            copyToClipboard(text, span, originalText);
+        });
+    });
+    
+    // Helper function for form submission completion
+    function completeFormSubmission(submitBtn, contactFormElement) {
+        submitBtn.classList.remove('loading');
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Message</span>';
+        alert('Thank you for your message! I will get back to you soon.');
+        contactFormElement.reset();
+    }
+    
+    // Enhanced form submission with loading state
+    const contactFormElement = document.getElementById('contactForm');
+    if (contactFormElement) {
+        const submitBtn = contactFormElement.querySelector('.submit-btn');
+        
+        // Check if form has FormSubmit action (real form submission)
+        if (contactFormElement.action && contactFormElement.action.includes('formsubmit.co')) {
+            contactFormElement.addEventListener('submit', function(e) {
+                // Add loading state but don't prevent default - let FormSubmit handle it
+                submitBtn.classList.add('loading');
+                submitBtn.innerHTML = '<span>Sending...</span>';
+            });
+        } else {
+            // Demo form submission
+            contactFormElement.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Add loading state
+                submitBtn.classList.add('loading');
+                submitBtn.innerHTML = '<span>Sending...</span>';
+                
+                // Simulate form submission (replace with actual submission logic)
+                setTimeout(() => {
+                    completeFormSubmission(submitBtn, contactFormElement);
+                }, 2000);
+            });
+        }
+    }
+});
+
 

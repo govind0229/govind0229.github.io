@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Govind Kumar</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/contact-modern.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -81,7 +82,7 @@
 
                 <div class="contact-form">
                     <h2>Send Me a Message</h2>
-                    <form action="https://formsubmit.co/govind_sharma@live.com" method="POST">
+                    <form id="contactForm" action="https://formsubmit.co/govind_sharma@live.com" method="POST">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" placeholder="Your Full Name" required>
@@ -104,7 +105,7 @@
                         <input type="hidden" name="_captcha" value="true">
                         <button type="submit" class="submit-btn">
                             <i class="fas fa-paper-plane"></i>
-                            Send Message
+                            <span>Send Message</span>
                         </button>
                     </form>
                 </div>
